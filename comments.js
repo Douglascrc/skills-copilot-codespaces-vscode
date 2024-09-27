@@ -1,25 +1,20 @@
-/**
- * Creates a web server.
- */
-const express = require('express');
-const app = express();
-const port = 3000;
+// Create web server
+// Create a web server that listens on port 3000 and serves the comments.html file. Use the fs module to read the file and send it to the client.
 
-/**
- * Returns a list of comments.
- */
-app.get('/comments', (req, res) => {
-  res.send([
-    {
-      id: 1,
-        text: 'Hello, world!',
-    },
-    {
-      id: 2,
-      text: 'This is a comment.',
-    },
-    ]);
+const http = require('http');
+const fs = require('fs');
+
+const server = http.createServer((req, res) => {
+  fs.readFile('comments.html', 'utf8', (err, data) => {
+    if (err) {
+      res.writeHead(404);
+      res.end('Not Found');
+    } else {
+      res.writeHead(200, {
+        'Content-Type': 'text/html',
+      });
+      res.end(data);
+    }
+  });
 }
 );
-
-
