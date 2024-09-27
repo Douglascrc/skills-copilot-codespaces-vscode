@@ -1,15 +1,25 @@
-// Create a web server
-const http = require('http');
-
-const hostname = '127.0.0.1';
+/**
+ * Creates a web server.
+ */
+const express = require('express');
+const app = express();
 const port = 3000;
 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Olá, mundo!\n');
-});
+/**
+ * Returns a list of comments.
+ */
+app.get('/comments', (req, res) => {
+  res.send([
+    {
+      id: 1,
+        text: 'Hello, world!',
+    },
+    {
+      id: 2,
+      text: 'This is a comment.',
+    },
+    ]);
+}
+);
 
-server.listen(port, hostname, () => {
-  console.log(`Servidor rodando em http://${hostname}:${port}/`);
-});
+
